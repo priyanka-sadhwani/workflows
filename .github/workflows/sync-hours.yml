@@ -2,7 +2,9 @@ name: Sync weekly work hours
 
 on:
   schedule:
-    - cron: "0 6 * * *"
+    # Avoid minute 0, 15, 30, and 45. Those are the crowded slots, and a dropped run is not retried.
+    - cron: "23 5 * * *"   # 05:23 UTC (07:23 UTC+2)
+    - cron: "47 15 * * *"  # 15:47 UTC (17:47 UTC+2), catch-up if the morning run is dropped
   workflow_dispatch:
 
 jobs:
